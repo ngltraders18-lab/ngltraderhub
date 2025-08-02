@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGL TRADING HUB</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #d1d5db; /* Light gray text */
+            background-color: #0d1117; /* Dark background */
+        }
+        .text-green-500 {
+            color: #22c55e;
+        }
+
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .animated-section {
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(20px);
+        }
+
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pulse-btn {
+            animation: pulse 2s infinite;
+        }
+        
+        /* General hover effect for cards */
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Glow effect for buttons on hover */
+        .glow-on-hover:hover {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.7); /* Subtle green glow */
+        }
+    </style>
+</head>
+<body class="bg-[#0d1117]">
+
+    <!-- Main Container -->
+    <div class="min-h-screen flex flex-col items-center p-4 sm:p-8 md:p-12 lg:p-16">
+
+        <!-- Header/Hero Section -->
+        <header class="text-center mb-12 sm:mb-16 md:mb-20 animated-section">
+            <!-- Title -->
+            <div class="text-center mb-4">
+                <h1 class="text-3xl sm:text-4xl font-bold text-white tracking-wide">Welcome to</h1>
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-green-500 tracking-wide">NGL TRADING HUB</h2>
+            </div>
+
+            <!-- Description -->
+            <p class="text-lg sm:text-xl text-gray-400 mt-6 max-w-2xl mx-auto">
+                Professional trader providing premium trading signals, market analysis and exclusive strategies through our VIP Telegram channel
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-8 justify-center">
+                <a href="https://t.me/ngltraders/853" class="bg-green-500 hover:bg-green-600 text-black font-semibold py-3 px-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 flex items-center justify-center pulse-btn glow-on-hover" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram-plane mr-2"></i> Join Premium Telegram
+                </a>
+                <a href="https://x.com/Ngl_trader/status/1946072436933644417" class="bg-transparent border-2 border-green-500 hover:bg-green-500 text-green-500 hover:text-black font-semibold py-3 px-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 flex items-center justify-center glow-on-hover" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-chart-line mr-2"></i> View Trading Results
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div id="stats-section" class="flex flex-col sm:flex-row justify-center items-center space-y-6 sm:space-y-0 sm:space-x-12 mt-12 text-center animated-section">
+                <div class="flex flex-col">
+                    <span class="text-3xl font-bold text-white counter" data-target="500" data-suffix="+">0</span>
+                    <span class="text-gray-400">Signals Sent</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-3xl font-bold text-white counter" data-target="92" data-suffix="%">0</span>
+                    <span class="text-gray-400">Signal Accuracy</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-3xl font-bold text-white counter" data-target="8">0</span>
+                    <span class="text-gray-400">Years Trading</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Trading Services Section -->
+        <section class="max-w-6xl mx-auto py-12 sm:py-16 animated-section">
+            <h2 class="text-4xl sm:text-5xl font-bold text-white text-center mb-8 sm:mb-12">
+                Trading <span class="text-green-500">Services</span>
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-400 text-center mb-10 max-w-2xl mx-auto">
+                Professional trading services designed to maximize your profit potential in the markets
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <!-- Premium Trading Signals Card -->
+                <div class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg flex flex-col items-start space-y-4 transition-transform duration-300 card-hover">
+                    <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-chart-line text-2xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">Premium Trading Signals</h3>
+                    <p class="text-gray-400">
+                        High-accuracy trading signals delivered in real-time through our exclusive Telegram channel, with entry, stop-loss, and take-profit levels.
+                    </p>
+                </div>
+
+                <!-- Market Analysis Card -->
+                <div class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg flex flex-col items-start space-y-4 transition-transform duration-300 card-hover">
+                    <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-chart-bar text-2xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">Market Analysis</h3>
+                    <p class="text-gray-400">
+                        Daily comprehensive market analysis covering major currency pairs and crypto, complemented with key support/resistance levels.
+                    </p>
+                </div>
+
+                <!-- VIP Telegram Access Card -->
+                <div class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg flex flex-col items-start space-y-4 transition-transform duration-300 card-hover">
+                    <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                        <i class="fab fa-telegram-plane text-2xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">VIP Telegram Access</h3>
+                    <p class="text-gray-400">
+                        Exclusive access to our premium Telegram channel with instant notifications, trade updates, and direct support from our team.
+                    </p>
+                </div>
+
+                <!-- Risk Management Card -->
+                <div class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg flex flex-col items-start space-y-4 transition-transform duration-300 card-hover">
+                    <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-2xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">Risk Management</h3>
+                    <p class="text-gray-400">
+                        Advanced risk management strategies and expert trading guidance to protect your capital and maximize profitable trades.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Telegram Service Section -->
+        <section class="max-w-4xl mx-auto py-12 sm:py-16 text-center animated-section">
+            <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4 sm:mb-8">
+                Premium <span class="text-green-500">Telegram Service</span>
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                Join our exclusive VIP Telegram channel for professional trading signals and market insights
+            </p>
+
+            <div class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg inline-block text-left transition-transform duration-300 card-hover">
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-6">
+                    <div class="flex items-center space-x-4 mb-4 sm:mb-0">
+                        <div class="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center">
+                            <i class="fab fa-telegram-plane text-3xl text-black"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <h3 class="text-2xl font-bold text-white">NGL TRADING HUB Premium</h3>
+                            <p class="text-sm text-gray-400">VIP ACCESS</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-gray-400 mb-6">
+                    Get exclusive access to high-accuracy trading signals, comprehensive market analysis, and professional trading strategies.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-400 mb-6">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-500"></i><span>Real-time trading signals</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-500"></i><span>Daily market analysis</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-500"></i><span>Risk management guidance</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-500"></i><span>24/7 support</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-500"></i><span>Entry & exit points</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-500"></i><span>Stop-loss recommendations</span>
+                    </div>
+                </div>
+
+                <div class="text-center mb-6">
+                    <span class="text-4xl font-bold text-white">₹299</span>
+                    <span class="text-gray-400">/month</span>
+                </div>
+
+                <a href="https://t.me/ngltraders/853" class="block w-full text-center bg-green-500 hover:bg-green-600 text-black font-semibold py-3 px-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 flex items-center justify-center pulse-btn glow-on-hover" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram-plane mr-2"></i> Join Premium Telegram
+                </a>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-12 mt-8 text-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-star text-green-500"></i>
+                    <div>
+                        <span class="text-white font-bold">92%</span>
+                        <span class="text-gray-400">Signal Accuracy</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-headset text-green-500"></i>
+                    <div>
+                        <span class="text-white font-bold">24/7</span>
+                        <span class="text-gray-400">Support</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Media Section -->
+        <section class="max-w-6xl mx-auto py-12 sm:py-16 animated-section">
+            <h2 class="text-4xl sm:text-5xl font-bold text-white text-center mb-4 sm:mb-8">
+                Connect & <span class="text-green-500">Follow</span>
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-400 text-center mb-10 max-w-2xl mx-auto">
+                Stay updated with our latest trading signals, market analysis, and exclusive trading content across all platforms
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <!-- Telegram Card -->
+                <a href="https://t.me/ngltraders/853" class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg text-center transition-transform transform hover:scale-105 glow-on-hover" target="_blank" rel="noopener noreferrer">
+                    <div class="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-telegram-plane text-4xl text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Telegram</h3>
+                    <p class="text-gray-400">Premium trading signals</p>
+                </a>
+                <!-- YouTube Card -->
+                <a href="https://www.youtube.com/@ngltrader5" class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg text-center transition-transform transform hover:scale-105 glow-on-hover" target="_blank" rel="noopener noreferrer">
+                    <div class="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-youtube text-4xl text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">YouTube</h3>
+                    <p class="text-gray-400">Market analysis videos</p>
+                </a>
+                <!-- Instagram Card -->
+                <a href="https://www.instagram.com/ngl_trader?igsh=aHAwdGt4ZWhhbG03" class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg text-center transition-transform transform hover:scale-105 glow-on-hover" target="_blank" rel="noopener noreferrer">
+                    <div class="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-instagram text-4xl text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Instagram</h3>
+                    <p class="text-gray-400">Daily trading tips</p>
+                </a>
+                <!-- Twitter Card -->
+                <a href="https://x.com/Ngl_trader?t=QCz5tlQQg6Fah5oHRW33Zw&s=08" class="bg-[#1a1e26] p-6 sm:p-8 rounded-2xl shadow-lg text-center transition-transform transform hover:scale-105 glow-on-hover" target="_blank" rel="noopener noreferrer">
+                    <div class="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-twitter text-4xl text-black"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Twitter</h3>
+                    <p class="text-gray-400">Real-time market updates</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="w-full max-w-6xl mx-auto py-12 text-gray-400 text-center border-t border-gray-700 mt-auto animated-section">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 text-left">
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-3xl font-extrabold text-green-500 mb-2">NGL TRADING HUB</h3>
+                    <p class="max-w-sm">
+                        Professional trading signals and market analysis to help traders maximize their profits in Indian market trading, forex, crypto, and commodity markets.
+                    </p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="https://www.instagram.com/ngl_trader?igsh=aHAwdGt4ZWhhbG03" class="w-10 h-10 bg-[#1a1e26] rounded-full flex items-center justify-center transition-colors hover:bg-green-500 text-gray-400 hover:text-black glow-on-hover" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@ngltrader5" class="w-10 h-10 bg-[#1a1e26] rounded-full flex items-center justify-center transition-colors hover:bg-green-500 text-gray-400 hover:text-black glow-on-hover" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://x.com/Ngl_trader?t=QCz5tlQQg6Fah5oHRW33Zw&s=08" class="w-10 h-10 bg-[#1a1e26] rounded-full flex items-center justify-center transition-colors hover:bg-green-500 text-gray-400 hover:text-black glow-on-hover" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://t.me/ngltraders/853" class="w-10 h-10 bg-[#1a1e26] rounded-full flex items-center justify-center transition-colors hover:bg-green-500 text-gray-400 hover:text-black glow-on-hover" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 text-left">
+                    <div>
+                        <h4 class="font-bold text-white mb-2">Quick Links</h4>
+                        <ul class="space-y-1">
+                            <li><a href="#" class="hover:text-green-500">Home</a></li>
+                            <li><a href="#" class="hover:text-green-500">Services</a></li>
+                            <li><a href="#" class="hover:text-green-500">Premium</a></li>
+                            <li><a href="#" class="hover:text-green-500">About</a></li>
+                            <li><a href="#" class="hover:text-green-500">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-2">Resources</h4>
+                        <ul class="space-y-1">
+                            <li><a href="#" class="hover:text-green-500">Free Resources</a></li>
+                            <li><a href="#" class="hover:text-green-500">Success Stories</a></li>
+                            <li><a href="#" class="hover:text-green-500">FAQ</a></li>
+                            <li><a href="#" class="hover:text-green-500">Privacy Policy</a></li>
+                            <li><a href="#" class="hover:text-green-500">Terms of Service</a></li>
+                            <li><a href="#" class="hover:text-green-500">Refund Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+                <p>&copy; 2024 NGL TRADING HUB. All rights reserved.</p>
+                <p>Built with ❤️ for entrepreneurs worldwide</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // JavaScript for fade-in on scroll animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const sections = document.querySelectorAll('.animated-section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Stats counter animation
+            const counters = document.querySelectorAll('.counter');
+            
+            // Function to handle the counting animation
+            const animateCount = (element) => {
+                const target = +element.dataset.target;
+                const suffix = element.dataset.suffix || '';
+                let current = 0;
+                const duration = 2000; // Animation duration in ms
+                const startTime = performance.now();
+            
+                const updateCounter = (timestamp) => {
+                    const elapsedTime = timestamp - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    current = Math.floor(progress * target);
+                    
+                    element.innerText = current + suffix;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.innerText = target + suffix;
+                    }
+                };
+            
+                requestAnimationFrame(updateCounter);
+            };
+            
+            // Observer for the stats section
+            const statsObserverOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when 50% of the element is visible
+            };
+            
+            const statsObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        counters.forEach(counter => {
+                            animateCount(counter);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, statsObserverOptions);
+            
+            const statsSection = document.getElementById('stats-section');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+        });
+    </script>
+</body>
+</html>

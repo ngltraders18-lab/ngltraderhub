@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Group Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19; /* Very dark background */
+            color: #d1d5db; /* Light gray for body text */
+        }
+        .container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .section-card {
+            background-color: #1f2937; /* Slightly lighter dark gray for cards */
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            z-index: 10;
+            overflow: hidden; /* Important to contain the glowing corners */
+            border: 1px solid #374151;
+        }
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        /* CSS for the animated pulsing corner glow effect */
+        .pulsing-rgb-corner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 0 0, rgba(16, 185, 129, 0.8), transparent 30%), /* Top-left glow */
+                radial-gradient(circle at 100% 0, rgba(59, 130, 246, 0.8), transparent 30%), /* Top-right glow */
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.8), transparent 30%), /* Bottom-right glow */
+                radial-gradient(circle at 0 100%, rgba(246, 139, 92, 0.8), transparent 30%); /* Bottom-left glow */
+            filter: blur(10px); /* Apply a blur to make it a soft glow */
+            z-index: -1;
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulse-glow {
+            0% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.6; transform: scale(1); }
+        }
+
+        .screenshot-img {
+            transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .screenshot-img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-200">
+    <div class="container py-8 md:py-16">
+
+        <!-- Page Header -->
+        <header class="text-center mb-16 px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight leading-tight">
+                Exclusive Trading Performance
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 font-light max-w-3xl mx-auto">
+                A transparent and verifiable look at the results generated exclusively for our premium group members.
+            </p>
+        </header>
+
+        <!-- Date Section -->
+        <div class="text-center mb-12">
+            <h3 class="text-xl text-gray-400 font-semibold">Report Date: <span id="report-date" class="text-green-400"></span></h3>
+        </div>
+
+        <!-- Options Trading Section -->
+        <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
+            <h2 class="text-3xl font-bold text-white mb-4">1. Option Trading Results</h2>
+            <p class="text-base text-gray-300 mb-8 leading-relaxed">
+                These are the verifiable results from our community's option strategies. We focus on calculated moves, using sophisticated techniques to generate consistent returns while meticulously managing risk.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
+                <!-- Replace these with your actual screenshot URLs -->
+                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                    <img src="https://placehold.co/600x400/10b981/ffffff?text=Options+Analysis" alt="Options trading analysis screenshot" class="w-full h-auto">
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                    <img src="https://placehold.co/600x400/10b981/ffffff?text=Options+P%26L" alt="Options trading profit and loss screenshot" class="w-full h-auto">
+                </div>
+            </div>
+        </section>
+
+        <!-- Forex Trading Section -->
+        <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
+            <h2 class="text-3xl font-bold text-white mb-4">2. Forex Trading Results</h2>
+            <p class="text-base text-gray-300 mb-8 leading-relaxed">
+                Here is a summary of our forex performance. Our group’s strategy combines technical indicators with a deep understanding of macroeconomic fundamentals to capitalize on major and minor currency pair movements.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
+                <!-- Replace these with your actual screenshot URLs -->
+                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                    <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Forex+Entry+Exit" alt="Forex trade entry and exit screenshot" class="w-full h-auto">
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                    <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Forex+Analytics" alt="Forex trading analytics screenshot" class="w-full h-auto">
+                </div>
+            </div>
+        </section>
+
+        <!-- Crypto Trading Section -->
+        <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
+            <h2 class="text-3xl font-bold text-white mb-4">3. Crypto Trading Results</h2>
+            <p class="text-base text-gray-300 mb-8 leading-relaxed">
+                The results for our crypto trading are detailed here. Our strategy is built on robust technical analysis and a close watch on market sentiment, protecting our members' capital in this dynamic and high-volatility space.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
+                <!-- Replace these with your actual screenshot URLs -->
+                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                    <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=Crypto+Trade+Log" alt="Crypto trade log screenshot" class="w-full h-auto">
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                    <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=Crypto+Portfolio" alt="Crypto portfolio screenshot" class="w-full h-auto">
+                </div>
+            </div>
+        </section>
+
+        <!-- Total P&L Section -->
+        <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
+            <h2 class="text-3xl font-bold text-white mb-4">4. Total P&L</h2>
+            <p class="text-base text-gray-300 mb-4 leading-relaxed">
+                A summary of our combined performance across all trading sectors.
+            </p>
+            <p class="text-gray-500 text-sm mb-8">Data as of <span id="pl-date"></span></p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <p class="text-gray-400 text-sm font-semibold">Options P&L</p>
+                    <p id="options-pl" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <p class="text-gray-400 text-sm font-semibold">Forex P&L</p>
+                    <p id="forex-pl" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <p class="text-gray-400 text-sm font-semibold">Crypto P&L</p>
+                    <p id="crypto-pl" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                </div>
+            </div>
+            <div class="mt-8 text-center bg-gray-700 p-6 rounded-lg">
+                <p class="text-gray-300 text-lg font-semibold">Total P&L</p>
+                <p id="total-pl" class="text-4xl font-extrabold text-green-500 mt-2">+₹0.00</p>
+            </div>
+        </section>
+
+        <!-- Back to Home Button -->
+        <div class="mt-16 mb-24 text-center">
+            <a href="#" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300">
+                Back to Home
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Footer Section matching the provided image -->
+    <footer class="bg-gray-950 text-gray-400 py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            
+            <div class="border-b border-gray-700 pb-8">
+                <h3 class="text-2xl font-bold text-green-500 mb-4">NGL TRADING HUB</h3>
+                <p class="max-w-2xl text-base mb-6">
+                    Professional trading signals and market analysis to help traders maximize their profits in Indian market trading, forex, crypto, and commodity markets.
+                </p>
+            </div>
+
+            <div class="text-center pt-8 text-sm">
+                <p class="mb-1">&copy; 2025 NGL TRADING HUB. All rights reserved.</p>
+                <p>Built with <span class="text-red-500">❤️</span> for entrepreneurs worldwide</p>
+            </div>
+            
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function calculateTotalPL() {
+                // Placeholder values for profit and loss
+                // You can update these with your actual numbers
+                const optionsProfit = 125000.75;
+                const forexProfit = -30000.50;
+                const cryptoProfit = 250000.00;
+    
+                const totalProfit = optionsProfit + forexProfit + cryptoProfit;
+    
+                // Helper function to format the number as currency and set the color
+                function formatPL(value, elementId) {
+                    const element = document.getElementById(elementId);
+                    const isPositive = value >= 0;
+                    element.textContent = (isPositive ? '+₹' : '-₹') + Math.abs(value).toFixed(2);
+                    element.style.color = isPositive ? '#10b981' : '#ef4444'; // green-500 or red-500
+                }
+    
+                // Update the display for each section
+                formatPL(optionsProfit, 'options-pl');
+                formatPL(forexProfit, 'forex-pl');
+                formatPL(cryptoProfit, 'crypto-pl');
+                formatPL(totalProfit, 'total-pl');
+    
+                // Get and display the current date
+                const today = new Date();
+                const formattedDate = today.toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                document.getElementById('report-date').textContent = formattedDate;
+                document.getElementById('pl-date').textContent = formattedDate;
+            }
+    
+            calculateTotalPL();
+        });
+    </script>
+</body>
+</html>

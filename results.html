@@ -66,12 +66,55 @@
             transform: scale(1.05);
             filter: brightness(1.1);
         }
+        
+        /* Multi-page specific CSS */
+        .content-section {
+            display: none;
+        }
+        /* The initial page is now the Options page */
+        #options-page {
+            display: block;
+        }
+        .active-link {
+            position: relative;
+            color: #10b981; /* Green color for active link */
+        }
+        .active-link::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 3px;
+            background-color: #10b981;
+            border-radius: 1.5px;
+            animation: fade-in 0.3s forwards;
+        }
+        @keyframes fade-in {
+            from { opacity: 0; width: 0; }
+            to { opacity: 1; width: 70%; }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-200">
-    <div class="container py-8 md:py-16">
 
-        <!-- Page Header -->
+    <!-- Header with Navigation -->
+    <header class="sticky top-0 z-50 bg-[#0b0f19] bg-opacity-90 backdrop-filter backdrop-blur-lg border-b border-gray-700">
+        <nav class="container flex justify-between items-center py-4">
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+                Premium Group Trades
+            </h1>
+            <div class="flex space-x-6 md:space-x-10">
+                <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200 active-link" data-page="options-page">Options</a>
+                <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200" data-page="forex-page">Forex</a>
+                <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200" data-page="crypto-page">Crypto</a>
+                <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200" data-page="pl-page">P&L</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-8 md:py-16">
         <header class="text-center mb-16 px-4">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight leading-tight">
                 Exclusive Trading Performance
@@ -80,161 +123,233 @@
                 A transparent and verifiable look at the results generated exclusively for our premium group members.
             </p>
         </header>
-
-        <!-- Date Section -->
         <div class="text-center mb-12">
             <h3 class="text-xl text-gray-400 font-semibold">Report Date: <span id="report-date" class="text-green-400"></span></h3>
         </div>
 
-        <!-- Options Trading Section -->
-        <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
-            <h2 class="text-3xl font-bold text-white mb-4">1. Option Trading Results</h2>
-            <p class="text-base text-gray-300 mb-8 leading-relaxed">
-                These are the verifiable results from our community's option strategies. We focus on calculated moves, using sophisticated techniques to generate consistent returns while meticulously managing risk.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
-                <!-- Replace these with your actual screenshot URLs -->
-                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                    <img src="https://i.ibb.co/hFT7Wbh2/photo-collage-png-1.png" alt="Options trading analysis screenshot" class="w-full h-auto">
+        <!-- Options Page Section -->
+        <div id="options-page" class="content-section">
+            <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
+                <h2 class="text-3xl font-bold text-white mb-4">1. Option Trading Results</h2>
+                <p class="text-base text-gray-300 mb-8 leading-relaxed">
+                    These are the verifiable results from our community's option strategies. We focus on calculated moves, using sophisticated techniques to generate consistent returns while meticulously managing risk.
+                </p>
+                <!-- Vertical stack of 5 screenshot placeholders -->
+                <div class="flex flex-col space-y-6">
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=Options+Screenshot+1" alt="Options trading screenshot 1" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=Options+Screenshot+2" alt="Options trading screenshot 2" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=Options+Screenshot+3" alt="Options trading screenshot 3" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=Options+Screenshot+4" alt="Options trading screenshot 4" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=Options+Screenshot+5" alt="Options trading screenshot 5" class="w-full h-auto">
+                    </div>
                 </div>
-                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                    <img src="https://i.ibb.co/7J6cmSjt/photo-collage-png.png" alt="Options trading profit and loss screenshot" class="w-full h-auto">
-                </div>
+            </section>
+            <!-- Back to Home button -->
+            <div class="text-center mt-12 mb-8">
+                <a href="https://example.com" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
             </div>
-        </section>
-
-        <!-- Forex Trading Section -->
-        <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
-            <h2 class="text-3xl font-bold text-white mb-4">2. Forex Trading Results</h2>
-            <p class="text-base text-gray-300 mb-8 leading-relaxed">
-                Here is a summary of our forex performance. Our group’s strategy combines technical indicators with a deep understanding of macroeconomic fundamentals to capitalize on major and minor currency pair movements.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
-                <!-- Replace these with your actual screenshot URLs -->
-                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                    <img src="https://i.ibb.co/cXZCnB2v/Screenshot-2025-08-16-161818.png" alt="Forex trade entry and exit screenshot" class="w-full h-auto">
-                </div>
-                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                    <img src="https://i.ibb.co/QFvTv4Gd/Screenshot-2025-08-16-161826.png" alt="Forex trading analytics screenshot" class="w-full h-auto">
-                </div>
-            </div>
-        </section>
-
-        <!-- Crypto Trading Section -->
-        <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
-            <h2 class="text-3xl font-bold text-white mb-4">3. Crypto Trading Results</h2>
-            <p class="text-base text-gray-300 mb-8 leading-relaxed">
-                The results for our crypto trading are detailed here. Our strategy is built on robust technical analysis and a close watch on market sentiment, protecting our members' capital in this dynamic and high-volatility space.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
-                <!-- Replace these with your actual screenshot URLs -->
-                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                    <img src="https://i.ibb.co/4gdFDW2f/Screenshot-2025-08-16-161742.png" alt="Crypto trade log screenshot" class="w-full h-auto">
-                </div>
-                <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                    <img src="https://i.ibb.co/4wHktNtQ/Screenshot-2025-08-16-161751.png" alt="Crypto portfolio screenshot" class="w-full h-auto">
-                </div>
-            </div>
-        </section>
-
-        <!-- Total P&L Section -->
-        <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
-            <h2 class="text-3xl font-bold text-white mb-4">4. Total P&L</h2>
-            <p class="text-base text-gray-300 mb-4 leading-relaxed">
-                A summary of our combined performance across all trading sectors.
-            </p>
-            <p class="text-gray-500 text-sm mb-8">Data as of <span id="pl-date"></span></p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                <div class="bg-gray-800 p-6 rounded-lg">
-                    <p class="text-gray-400 text-sm font-semibold">Options P&L</p>
-                    <p id="options-pl" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-lg">
-                    <p class="text-gray-400 text-sm font-semibold">Forex P&L</p>
-                    <p id="forex-pl" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-lg">
-                    <p class="text-gray-400 text-sm font-semibold">Crypto P&L</p>
-                    <p id="crypto-pl" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
-                </div>
-            </div>
-            <div class="mt-8 text-center bg-gray-700 p-6 rounded-lg">
-                <p class="text-gray-300 text-lg font-semibold">Total P&L</p>
-                <p id="total-pl" class="text-4xl font-extrabold text-green-500 mt-2">+₹0.00</p>
-            </div>
-        </section>
-
-        <!-- Back to Home Button -->
-        <div class="mt-16 mb-24 text-center">
-            <a href="index.html" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300">
-    Back to Home
-</a>
-
         </div>
 
-    </div>
+        <!-- Forex Page Section -->
+        <div id="forex-page" class="content-section">
+            <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
+                <h2 class="text-3xl font-bold text-white mb-4">2. Forex Trading Results</h2>
+                <p class="text-base text-gray-300 mb-8 leading-relaxed">
+                    Here is a summary of our forex performance. Our group’s strategy combines technical indicators with a deep understanding of macroeconomic fundamentals to capitalize on major and minor currency pair movements.
+                </p>
+                <!-- Vertical stack of 5 screenshot placeholders -->
+                <div class="flex flex-col space-y-6">
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Forex+Screenshot+1" alt="Forex trade screenshot 1" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Forex+Screenshot+2" alt="Forex trade screenshot 2" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Forex+Screenshot+3" alt="Forex trade screenshot 3" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Forex+Screenshot+4" alt="Forex trade screenshot 4" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Forex+Screenshot+5" alt="Forex trade screenshot 5" class="w-full h-auto">
+                    </div>
+                </div>
+            </section>
+            <!-- Back to Home button -->
+            <div class="text-center mt-12 mb-8">
+                <a href="https://example.com" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
+            </div>
+        </div>
+
+        <!-- Crypto Page Section -->
+        <div id="crypto-page" class="content-section">
+            <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
+                <h2 class="text-3xl font-bold text-white mb-4">3. Crypto Trading Results</h2>
+                <p class="text-base text-gray-300 mb-8 leading-relaxed">
+                    The results for our crypto trading are detailed here. Our strategy is built on robust technical analysis and a close watch on market sentiment, protecting our members' capital in this dynamic and high-volatility space.
+                </p>
+                <!-- Vertical stack of 5 screenshot placeholders -->
+                <div class="flex flex-col space-y-6">
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=Crypto+Screenshot+1" alt="Crypto trade screenshot 1" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=Crypto+Screenshot+2" alt="Crypto trade screenshot 2" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=Crypto+Screenshot+3" alt="Crypto trade screenshot 3" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=Crypto+Screenshot+4" alt="Crypto trade screenshot 4" class="w-full h-auto">
+                    </div>
+                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
+                        <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=Crypto+Screenshot+5" alt="Crypto trade screenshot 5" class="w-full h-auto">
+                    </div>
+                </div>
+            </section>
+            <!-- Back to Home button -->
+            <div class="text-center mt-12 mb-8">
+                <a href="https://example.com" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
+            </div>
+        </div>
+        
+        <!-- P&L Page Section -->
+        <div id="pl-page" class="content-section">
+             <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
+                <h2 class="text-3xl font-bold text-white mb-4">4. Total P&L</h2>
+                <p class="text-base text-gray-300 mb-4 leading-relaxed">
+                    A summary of our combined performance across all trading sectors.
+                </p>
+                <p class="text-gray-500 text-sm mb-8">Data as of <span id="pl-date"></span></p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Options P&L</p>
+                        <p id="pl-options-display" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Forex P&L</p>
+                        <p id="pl-forex-display" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Crypto P&L</p>
+                        <p id="pl-crypto-display" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                    </div>
+                </div>
+                <div class="mt-8 text-center bg-gray-700 p-6 rounded-lg">
+                    <p class="text-gray-300 text-lg font-semibold">Total P&L</p>
+                    <p id="pl-total-display" class="text-4xl font-extrabold text-green-500 mt-2">+₹0.00</p>
+                </div>
+            </section>
+            <!-- Back to Home button -->
+            <div class="text-center mt-12 mb-8">
+                <a href="https://example.com" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </main>
 
     <!-- Footer Section matching the provided image -->
     <footer class="bg-gray-950 text-gray-400 py-12 md:py-16">
         <div class="container mx-auto px-4">
-            
             <div class="border-b border-gray-700 pb-8">
                 <h3 class="text-2xl font-bold text-green-500 mb-4">NGL TRADING HUB</h3>
                 <p class="max-w-2xl text-base mb-6">
                     Professional trading signals and market analysis to help traders maximize their profits in Indian market trading, forex, crypto, and commodity markets.
                 </p>
             </div>
-
             <div class="text-center pt-8 text-sm">
                 <p class="mb-1">&copy; 2025 NGL TRADING HUB. All rights reserved.</p>
                 <p>Built with <span class="text-red-500">❤️</span> for entrepreneurs worldwide</p>
             </div>
-            
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            function calculateTotalPL() {
-                // Placeholder values for profit and loss
-                // You can update these with your actual numbers
-                const optionsProfit = 2140.75;
-                const forexProfit = -98000.50;
-                const cryptoProfit = 250000.00;
-    
-                const totalProfit = optionsProfit + forexProfit + cryptoProfit;
-    
-                // Helper function to format the number as currency and set the color
-                function formatPL(value, elementId) {
-                    const element = document.getElementById(elementId);
-                    const isPositive = value >= 0;
-                    element.textContent = (isPositive ? '+₹' : '-₹') + Math.abs(value).toFixed(2);
-                    element.style.color = isPositive ? '#10b981' : '#ef4444'; // green-500 or red-500
-                }
-    
-                // Update the display for each section
-                formatPL(optionsProfit, 'options-pl');
-                formatPL(forexProfit, 'forex-pl');
-                formatPL(cryptoProfit, 'crypto-pl');
-                formatPL(totalProfit, 'total-pl');
-    
-                // Get and display the current date
-                const today = new Date();
-                const formattedDate = today.toLocaleDateString('en-IN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                
-                document.getElementById('report-date').textContent = formattedDate;
-                document.getElementById('pl-date').textContent = formattedDate;
+            // Hardcoded P&L values for display
+            const optionsProfit = 125000.75;
+            const forexProfit = -30000.50;
+            const cryptoProfit = 250000.00;
+            const totalProfit = optionsProfit + forexProfit + cryptoProfit;
+
+            // Helper function to format the number as currency and set the color
+            function formatPL(value, elementId) {
+                const element = document.getElementById(elementId);
+                const isPositive = value >= 0;
+                element.textContent = (isPositive ? '+₹' : '-₹') + Math.abs(value).toFixed(2);
+                element.style.color = isPositive ? '#10b981' : '#ef4444'; // green-500 or red-500
             }
-    
-            calculateTotalPL();
+
+            // Update the display for each section
+            formatPL(optionsProfit, 'pl-options-display');
+            formatPL(forexProfit, 'pl-forex-display');
+            formatPL(cryptoProfit, 'pl-crypto-display');
+            formatPL(totalProfit, 'pl-total-display');
+
+            // Get and display the current date
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('report-date').textContent = formattedDate;
+            document.getElementById('pl-date').textContent = formattedDate;
+
+            // --- Multi-Page Logic ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            function showPage(pageId) {
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+
+                // Show the target section
+                const targetSection = document.getElementById(pageId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                }
+            }
+
+            function updateActiveLink(pageId) {
+                navLinks.forEach(nav => nav.classList.remove('active-link'));
+                const activeNav = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+                if (activeNav) {
+                    activeNav.classList.add('active-link');
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetPageId = link.getAttribute('data-page');
+                    updateActiveLink(targetPageId);
+                    showPage(targetPageId);
+                });
+            });
+
+            // Initial state setup
+            updateActiveLink('options-page');
+            showPage('options-page');
         });
     </script>
 </body>

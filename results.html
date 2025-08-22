@@ -593,28 +593,7 @@
 }
 
 
-                // Loop through each day of the month
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const date = new Date(year, month, day);
-                    const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
-
-                    const formattedDate = date.toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric'
-                    });
-
-                    // Check if it's a weekend (Saturday or Sunday) for Options and Forex only
-                    const isHoliday = (category === 'options' || category === 'forex') && (dayOfWeek === 0 || dayOfWeek === 6);
-                    
-                    if (isHoliday) {
-                        data.push({ date: formattedDate, profit: null, isHoliday: true });
-                    } else {
-                        const profit = getRandomPL(minProfit, maxProfit);
-                        data.push({ date: formattedDate, profit: profit, isHoliday: false });
-                    }
-                }
-                return data;
+               
             }
 
             /**
@@ -718,9 +697,9 @@
             const currentYear = new Date().getFullYear();
             const currentMonth = 7; // August is month 7 (0-indexed)
             
-          const optionsData = generateManualData('options', currentMonth, currentYear);
-const forexData = generateManualData('forex', currentMonth, currentYear);
-const cryptoData = generateManualData('crypto', currentMonth, currentYear);
+          const prevOptionsData = generateManualData('options', prevMonth, prevYear);
+const prevForexData = generateManualData('forex', prevMonth, prevYear);
+const prevCryptoData = generateManualData('crypto', prevMonth, prevYear);
 
 
             // Calculate the total profit for each category, ignoring holidays
@@ -756,9 +735,9 @@ const cryptoData = generateManualData('crypto', currentMonth, currentYear);
                 const prevYear = prevMonth > currentMonth ? currentYear - 1 : currentYear;
 
                 // Generate data for each category for the previous month
-                const prevOptionsData = generateMonthlyData('options', prevMonth, prevYear);
-                const prevForexData = generateMonthlyData('forex', prevMonth, prevYear);
-                const prevCryptoData = generateMonthlyData('crypto', prevMonth, prevYear);
+               const prevOptionsData = generateManualData('options', prevMonth, prevYear);
+const prevForexData = generateManualData('forex', prevMonth, prevYear);
+const prevCryptoData = generateManualData('crypto', prevMonth, prevYear);
 
                 // Calculate total P&L for the month
                 const prevTotalPL = 

@@ -13,7 +13,6 @@
             font-family: 'Inter', sans-serif;
             background-color: #0c1a2c; /* Deep dark blue background */
             color: #d1d5db; /* Light gray for body text */
-            /* This is the key to preventing mobile horizontal scrolling */
             overflow-x: hidden;
         }
         .container {
@@ -29,15 +28,15 @@
             position: relative;
             z-index: 10;
             overflow: hidden;
-            border: 1px solid #1e3a5f;
+            border: 1px solid #10b981; /* Green border to match glow */
         }
         .section-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
         }
 
-        /* CSS for the animated pulsing corner glow effect, using a green and blue palette */
-        .pulsing-rgb-corner::before {
+        /* CSS for the subtle green glowing corner effect */
+        .subtle-green-glow::before {
             content: '';
             position: absolute;
             top: 0;
@@ -45,35 +44,25 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 0 0, rgba(16, 185, 129, 0.8), transparent 30%), /* Top-left glow (green) */
-                radial-gradient(circle at 100% 0, rgba(59, 130, 246, 0.8), transparent 30%), /* Top-right glow (blue) */
-                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.8), transparent 30%), /* Bottom-right glow (purple) */
-                radial-gradient(circle at 0 100%, rgba(246, 139, 92, 0.8), transparent 30%); /* Bottom-left glow (orange) */
-            filter: blur(10px);
+                radial-gradient(circle at 0 0, rgba(16, 185, 129, 0.3), transparent 30%), /* Top-left glow (green) */
+                radial-gradient(circle at 100% 0, rgba(16, 185, 129, 0.3), transparent 30%), /* Top-right glow (green) */
+                radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.3), transparent 30%), /* Bottom-right glow (green) */
+                radial-gradient(circle at 0 100%, rgba(16, 185, 129, 0.3), transparent 30%); /* Bottom-left glow (green) */
+            filter: blur(8px);
             z-index: -1;
-            animation: pulse-glow 3s infinite ease-in-out;
+            animation: slow-glow 5s infinite ease-in-out; /* Slower animation speed */
         }
         
-        @keyframes pulse-glow {
-            0% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
-            100% { opacity: 0.6; transform: scale(1); }
+        @keyframes slow-glow {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.02); }
+            100% { opacity: 0.3; transform: scale(1); }
         }
 
-        .screenshot-img {
-            transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-            cursor: pointer;
-        }
-        .screenshot-img:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
-        
         /* Multi-page specific CSS */
         .content-section {
             display: none;
         }
-        /* The initial page is now the Options page */
         #options-page {
             display: block;
         }
@@ -97,16 +86,75 @@
             from { opacity: 0; width: 0; }
             to { opacity: 1; width: 70%; }
         }
+
+        .trade-card {
+            background-color: #1a2a44;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .trade-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* New animation for page transitions */
+        .page-transition-enter {
+            animation: page-transition-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes page-transition-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- New CSS for the falling symbols animation --- */
+        .falling-symbol {
+            position: absolute;
+            top: -50px; /* Start symbols above the viewport */
+            font-size: 3rem; /* Large size for visibility */
+            color: #10b981; /* Bright green color */
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.8); /* Subtle glow effect */
+            animation: fall linear forwards;
+            z-index: 100;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(120vh) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-200">
+    <!-- Container for falling symbols -->
+    <div id="symbol-rain" class="absolute inset-0 z-50 pointer-events-none"></div>
 
     <!-- Header with Navigation -->
     <header class="sticky top-0 z-50 bg-[#0c1a2c] bg-opacity-90 backdrop-filter backdrop-blur-lg border-b border-gray-700">
         <nav class="container flex flex-col md:flex-row justify-between items-center py-4 space-y-4 md:space-y-0">
-            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-500">
                 NGL HUB
             </h1>
+            <!-- Removed the home link from the header navigation -->
             <div class="flex flex-wrap justify-center space-x-4 md:space-x-10">
                 <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200 active-link" data-page="options-page">Options</a>
                 <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200" data-page="forex-page">Forex</a>
@@ -122,43 +170,78 @@
                 Exclusive Trading Performance
             </h1>
             <p class="text-lg md:text-xl text-gray-400 font-light max-w-3xl mx-auto">
-                A transparent and verifiable look at the results generated exclusively for our premium group members.
+                To ensure a standardized and accessible view of our performance, all returns are calculated based on the minimum lot size. This provides a clear and consistent baseline for analyzing our trading results.
             </p>
         </header>
         <div class="text-center mb-12">
-            <h3 class="text-xl text-gray-400 font-semibold">Report Date: <span id="report-date" class="text-green-400"></span></h3>
+            <h3 class="text-xl text-gray-400 font-semibold">Report Date: <span id="report-date" class="text-white"></span></h3>
         </div>
 
         <!-- Options Page Section -->
         <div id="options-page" class="content-section">
-            <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
-                <h2 class="text-3xl font-bold text-white mb-4">1. Option Trading Results</h2>
-                <p class="text-base text-gray-300 mb-8 leading-relaxed">
-                    These are the verifiable results from our community's option strategies. We focus on calculated moves, using sophisticated techniques to generate consistent returns while meticulously managing risk.
+            <section class="section-card p-6 md:p-10 mb-8 subtle-green-glow">
+                <h2 class="text-3xl font-bold text-white mb-4">Option Trading Results</h2>
+                <p class="text-base text-gray-300 mb-6 leading-relaxed">
+                    Here are the verifiable P&L records from our community's option strategies. We focus on calculated moves to generate consistent returns while meticulously managing risk.
                 </p>
-                <!-- Vertical stack of 5 screenshot placeholders -->
-                <div class="flex flex-col space-y-6">
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/dw0dwSdn/trade-2.jpg" alt="Options trading screenshot 1" class="w-full h-auto">
+                <!-- Trade Counts -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Green Trades</p>
+                        <p id="options-green-trades" data-value="0" class="text-xl font-bold text-green-500 mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/NX01dmw/trade-1.jpg" alt="Options trading screenshot 2" class="w-full h-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Red Trades</p>
+                        <p id="options-red-trades" data-value="0" class="text-xl font-bold text-red-500 mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/h11SQbjN/trade-3.jpg" alt="Options trading screenshot 3" class="w-full h-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Total Trades</p>
+                        <p id="options-total-trades" data-value="0" class="text-xl font-bold text-white mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/Jw4G8wCz/Trade-4.jpg" alt="Options trading screenshot 4" class="w-full h-auto">
+                </div>
+                <!-- Container for dynamically added P&L cards -->
+                <div id="options-results-container" class="flex flex-col space-y-6">
+                    <!-- P&L cards will be added here via JavaScript -->
+                </div>
+            </section>
+            
+            <!-- Best Trades of the Month Section -->
+            <section class="section-card p-6 md:p-10 mb-8 subtle-green-glow">
+                <h2 class="text-3xl font-bold text-white mb-6">Best Trades of the Month</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Trade 1 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+1" alt="Screenshot of NIFTY trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">NIFTY 21000 CE (Call Option)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="15500" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A precision-timed entry on a breakout leading to significant gains.</p>
+                        </div>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/Jw4G8wCz/Trade-4.jpg" alt="Options trading screenshot 5" class="w-full h-auto">
+                    <!-- Trade 2 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+2" alt="Screenshot of BANKNIFTY trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">BANKNIFTY 45000 PE (Put Option)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="12200" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A quick-scalp strategy executed perfectly during a market dip.</p>
+                        </div>
+                    </div>
+                    <!-- Trade 3 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+3" alt="Screenshot of FINNIFTY trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">FINNIFTY 19800 CE (Call Option)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="9100" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A swing trade capturing a solid upward trend over two days.</p>
+                        </div>
                     </div>
                 </div>
             </section>
-            <!-- Back to Home button -->
-            <div class="text-center mt-12 mb-8">
+            <!-- New Home button for this page -->
+            <div class="flex justify-center mt-8">
                <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
-   <i class="fas fa-arrow-left mr-2"></i> Back to Home
+    <i class="fas fa-arrow-left mr-2"></i> Back to Home
 </a>
 
             </div>
@@ -166,34 +249,69 @@
 
         <!-- Forex Page Section -->
         <div id="forex-page" class="content-section">
-            <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
-                <h2 class="text-3xl font-bold text-white mb-4">2. Forex Trading Results</h2>
-                <p class="text-base text-gray-300 mb-8 leading-relaxed">
-                    Here is a summary of our forex performance. Our group’s strategy combines technical indicators with a deep understanding of macroeconomic fundamentals to capitalize on major and minor currency pair movements.
+            <section class="section-card p-6 md:p-10 mb-8 subtle-green-glow">
+                <h2 class="text-3xl font-bold text-white mb-4">Forex Trading Results</h2>
+                <p class="text-base text-gray-300 mb-6 leading-relaxed">
+                    Here is a summary of our forex performance. Our group’s strategy combines technical indicators with a deep understanding of macroeconomic fundamentals.
                 </p>
-                <!-- Vertical stack of 5 screenshot placeholders -->
-                <div class="flex flex-col space-y-6">
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" alt="Forex trade screenshot 1" class="w-full h-auto">
+                <!-- Trade Counts -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Green Trades</p>
+                        <p id="forex-green-trades" data-value="0" class="text-xl font-bold text-green-500 mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" alt="Forex trade screenshot 2" class="w-full h-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Red Trades</p>
+                        <p id="forex-red-trades" data-value="0" class="text-xl font-bold text-red-500 mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" alt="Forex trade screenshot 3" class="w-full h-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Total Trades</p>
+                        <p id="forex-total-trades" data-value="0" class="text-xl font-bold text-white mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" alt="Forex trade screenshot 4" class="w-full h-auto">
+                </div>
+                <!-- Container for dynamically added P&L cards -->
+                <div id="forex-results-container" class="flex flex-col space-y-6">
+                    <!-- P&L cards will be added here via JavaScript -->
+                </div>
+            </section>
+            
+            <!-- Best Trades of the Month Section -->
+            <section class="section-card p-6 md:p-10 mb-8 subtle-green-glow">
+                <h2 class="text-3xl font-bold text-white mb-6">Best Trades of the Month</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Trade 1 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+1" alt="Screenshot of EUR/USD trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">EUR/USD (Euro vs US Dollar)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="9800" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A successful short trade based on shifting macroeconomic data.</p>
+                        </div>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" class="w-full h-auto">
+                    <!-- Trade 2 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+2" alt="Screenshot of GBP/JPY trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">GBP/JPY (Pound vs Yen)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="7500" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A long position capturing a key trend reversal with high momentum.</p>
+                        </div>
+                    </div>
+                    <!-- Trade 3 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+3" alt="Screenshot of USD/CAD trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">USD/CAD (Dollar vs Canadian Dollar)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="5900" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A perfect breakout trade on a low-volatility pair.</p>
+                        </div>
                     </div>
                 </div>
             </section>
-            <!-- Back to Home button -->
-            <div class="text-center mt-12 mb-8">
-               <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
-   <i class="fas fa-arrow-left mr-2"></i> Back to Home
+            <!-- New Home button for this page -->
+            <div class="flex justify-center mt-8">
+                <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
+    <i class="fas fa-arrow-left mr-2"></i> Back to Home
 </a>
 
             </div>
@@ -201,34 +319,69 @@
 
         <!-- Crypto Page Section -->
         <div id="crypto-page" class="content-section">
-            <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
-                <h2 class="text-3xl font-bold text-white mb-4">3. Crypto Trading Results</h2>
-                <p class="text-base text-gray-300 mb-8 leading-relaxed">
-                    The results for our crypto trading are detailed here. Our strategy is built on robust technical analysis and a close watch on market sentiment, protecting our members' capital in this dynamic and high-volatility space.
+            <section class="section-card p-6 md:p-10 mb-8 subtle-green-glow">
+                <h2 class="text-3xl font-bold text-white mb-4">Crypto Trading Results</h2>
+                <p class="text-base text-gray-300 mb-6 leading-relaxed">
+                    The results for our crypto trading are detailed here. Our strategy is built on robust technical analysis and a close watch on market sentiment.
                 </p>
-                <!-- Vertical stack of 5 screenshot placeholders -->
-                <div class="flex flex-col space-y-6">
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" class="w-full h-auto">
+                <!-- Trade Counts -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Green Trades</p>
+                        <p id="crypto-green-trades" data-value="0" class="text-xl font-bold text-green-500 mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" alt="Crypto trade screenshot 2" class="w-full h-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Red Trades</p>
+                        <p id="crypto-red-trades" data-value="0" class="text-xl font-bold text-red-500 mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" alt="Crypto trade screenshot 3" class="w-full h-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <p class="text-gray-400 text-sm font-semibold">Total Trades</p>
+                        <p id="crypto-total-trades" data-value="0" class="text-xl font-bold text-white mt-1">0</p>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" alt="Crypto trade screenshot 4" class="w-full h-auto">
+                </div>
+                <!-- Container for dynamically added P&L cards -->
+                <div id="crypto-results-container" class="flex flex-col space-y-6">
+                    <!-- P&L cards will be added here via JavaScript -->
+                </div>
+            </section>
+            
+            <!-- Best Trades of the Month Section -->
+            <section class="section-card p-6 md:p-10 mb-8 subtle-green-glow">
+                <h2 class="text-3xl font-bold text-white mb-6">Best Trades of the Month</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Trade 1 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+1" alt="Screenshot of BTC/USD trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">BTC/USD (Bitcoin vs US Dollar)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="25200" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A leveraged long position capturing a key reversal point in the market.</p>
+                        </div>
                     </div>
-                    <div class="relative overflow-hidden rounded-lg shadow-xl screenshot-img">
-                        <img src="https://i.ibb.co/ynbPkn0X/TRADE-NOT-GIVEN.jpg" alt="Crypto trade screenshot 5" class="w-full h-auto">
+                    <!-- Trade 2 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+2" alt="Screenshot of ETH/USD trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">ETH/USD (Ethereum vs US Dollar)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="18500" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A successful short trade during a sudden market correction.</p>
+                        </div>
+                    </div>
+                    <!-- Trade 3 -->
+                    <div class="trade-card">
+                        <img src="https://placehold.co/400x250/1e3a5f/d1d5db?text=Screenshot+3" alt="Screenshot of SOL/USD trade chart">
+                        <div>
+                            <p class="text-gray-400 text-sm font-semibold">SOL/USD (Solana vs US Dollar)</p>
+                            <p class="text-white text-xl font-bold my-1">Profit: <span data-value="11300" class="text-green-500">+₹0</span></p>
+                            <p class="text-gray-500 text-xs italic">A strategic scalp trade based on real-time on-chain data analysis.</p>
+                        </div>
                     </div>
                 </div>
             </section>
-            <!-- Back to Home button -->
-            <div class="text-center mt-12 mb-8">
+            <!-- New Home button for this page -->
+            <div class="flex justify-center mt-8">
                 <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
-   <i class="fas fa-arrow-left mr-2"></i> Back to Home
+    <i class="fas fa-arrow-left mr-2"></i> Back to Home
 </a>
 
             </div>
@@ -236,46 +389,63 @@
         
         <!-- P&L Page Section -->
         <div id="pl-page" class="content-section">
-             <section class="section-card p-6 md:p-10 mb-12 pulsing-rgb-corner">
-                <h2 class="text-3xl font-bold text-white mb-4">4. Total P&L</h2>
+             <section class="section-card p-6 md:p-10 mb-8 subtle-green-glow">
+                <h2 class="text-3xl font-bold text-white mb-4">Total P&L</h2>
                 <p class="text-base text-gray-300 mb-4 leading-relaxed">
                     A summary of our combined performance across all trading sectors.
                 </p>
-                <p class="text-gray-500 text-sm mb-8">Data as of <span id="pl-date"></span></p>
+                <p class="text-gray-400 text-sm mb-8">Data as of <span id="pl-date"></span></p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                     <div class="bg-gray-800 p-6 rounded-lg">
                         <p class="text-gray-400 text-sm font-semibold">Options P&L</p>
-                        <p id="pl-options-display" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                        <p id="pl-options-display" data-value="0" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
                     </div>
                     <div class="bg-gray-800 p-6 rounded-lg">
                         <p class="text-gray-400 text-sm font-semibold">Forex P&L</p>
-                        <p id="pl-forex-display" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                        <p id="pl-forex-display" data-value="0" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
                     </div>
                     <div class="bg-gray-800 p-6 rounded-lg">
                         <p class="text-gray-400 text-sm font-semibold">Crypto P&L</p>
-                        <p id="pl-crypto-display" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
+                        <p id="pl-crypto-display" data-value="0" class="text-xl font-bold text-green-500 mt-2">+₹0.00</p>
                     </div>
                 </div>
                 <div class="mt-8 text-center bg-gray-700 p-6 rounded-lg">
                     <p class="text-gray-300 text-lg font-semibold">Total P&L</p>
-                    <p id="pl-total-display" class="text-4xl font-extrabold text-green-500 mt-2">+₹0.00</p>
+                    <p id="pl-total-display" data-value="0" class="text-4xl font-extrabold text-green-500 mt-2">+₹0.00</p>
+                </div>
+                 <!-- Total Trades Summary -->
+                <div class="mt-8 text-center bg-gray-700 p-6 rounded-lg">
+                    <p class="text-gray-300 text-lg font-semibold">Total Trades (August)</p>
+                    <p id="pl-total-trades" data-value="0" class="text-4xl font-extrabold text-white mt-2">0</p>
                 </div>
             </section>
-            <!-- Back to Home button -->
-            <div class="text-center mt-12 mb-8">
+
+             <!-- New section for Last 3 Months P&L -->
+            <section class="section-card p-6 md:p-10 mb-12 subtle-green-glow">
+                <h2 class="text-3xl font-bold text-white mb-4">Historical P&L</h2>
+                <p class="text-base text-gray-300 mb-8 leading-relaxed">
+                    A look at our past three months' total performance across all trading sectors.
+                </p>
+                <div id="historical-pnl-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <!-- Historical P&L cards will be added here via JavaScript -->
+                </div>
+            </section>
+            
+            <!-- New Home button for this page -->
+            <div class="flex justify-center mt-8">
                <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
-   <i class="fas fa-arrow-left mr-2"></i> Back to Home
+    <i class="fas fa-arrow-left mr-2"></i> Back to Home
 </a>
 
             </div>
         </div>
     </main>
 
-    <!-- Footer Section matching the provided image -->
+    <!-- Footer Section -->
     <footer class="bg-gray-950 text-gray-400 py-12 md:py-16">
         <div class="container mx-auto px-4">
             <div class="border-b border-gray-700 pb-8">
-                <h3 class="text-2xl font-bold text-green-500 mb-4">NGL HUB</h3>
+                <h3 class="text-2xl font-bold text-white mb-4">NGL HUB</h3>
                 <p class="max-w-2xl text-base mb-6">
                     Professional trading signals and market analysis to help traders maximize their profits in Indian market trading, forex, crypto, and commodity markets.
                 </p>
@@ -289,26 +459,218 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Hardcoded P&L values for display
-            const optionsProfit = 125000.75;
-            const forexProfit = -30000.50;
-            const cryptoProfit = 250000.00;
-            const totalProfit = optionsProfit + forexProfit + cryptoProfit;
 
-            // Helper function to format the number as currency and set the color
-            function formatPL(value, elementId) {
-                const element = document.getElementById(elementId);
-                const isPositive = value >= 0;
-                element.textContent = (isPositive ? '+₹' : '-₹') + Math.abs(value).toFixed(2);
-                element.style.color = isPositive ? '#10b981' : '#ef4444'; // green-500 or red-500
+            // Function to generate a random P&L value between min and max
+            function getRandomPL(min, max) {
+                return (Math.random() * (max - min) + min);
             }
 
-            // Update the display for each section
-            formatPL(optionsProfit, 'pl-options-display');
-            formatPL(forexProfit, 'pl-forex-display');
-            formatPL(cryptoProfit, 'pl-crypto-display');
-            // Correcting the ReferenceError by using totalProfit
-            formatPL(totalProfit, 'pl-total-display');
+            // Function to generate a full month's worth of P&L data for a specific month
+            function generateMonthlyData(category, month, year) {
+                const data = [];
+                const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get number of days in the month
+                
+                let minProfit, maxProfit;
+                // Set profit ranges based on category for realistic data
+                if (category === 'options') {
+                    minProfit = -2000;
+                    maxProfit = 8000;
+                } else if (category === 'forex') {
+                    minProfit = -1000;
+                    maxProfit = 4000;
+                } else if (category === 'crypto') {
+                    minProfit = -5000;
+                    maxProfit = 15000;
+                }
+
+                // Loop through each day of the month
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const date = new Date(year, month, day);
+                    const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
+
+                    const formattedDate = date.toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+
+                    // Check if it's a weekend (Saturday or Sunday) for Options and Forex only
+                    const isHoliday = (category === 'options' || category === 'forex') && (dayOfWeek === 0 || dayOfWeek === 6);
+                    
+                    if (isHoliday) {
+                        data.push({ date: formattedDate, profit: null, isHoliday: true });
+                    } else {
+                        const profit = getRandomPL(minProfit, maxProfit);
+                        data.push({ date: formattedDate, profit: profit, isHoliday: false });
+                    }
+                }
+                return data;
+            }
+
+            /**
+             * Animates a number from 0 to a target value.
+             * @param {HTMLElement} element The DOM element to update.
+             * @param {number} targetValue The final number to display.
+             * @param {number} duration The animation duration in milliseconds.
+             * @param {boolean} isCurrency True if the number should be formatted as currency.
+             */
+            function animateNumber(element, targetValue, duration, isCurrency) {
+                const startTimestamp = performance.now();
+                const startValue = 0;
+
+                const step = (timestamp) => {
+                    const elapsed = timestamp - startTimestamp;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const currentValue = startValue + (targetValue - startValue) * progress;
+
+                    let displayValue;
+                    if (isCurrency) {
+                        const sign = targetValue >= 0 ? '+' : ''; // Keep sign for all numbers
+                        const formattedValue = Math.abs(currentValue).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        displayValue = `${sign}₹${formattedValue}`;
+                    } else {
+                        displayValue = Math.floor(currentValue);
+                    }
+                    element.textContent = displayValue;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    }
+                };
+                requestAnimationFrame(step);
+            }
+
+            // Function to calculate and render trade counts
+            function renderTradeCounts(dataArray, greenId, redId, totalId) {
+                let greenTrades = 0;
+                let redTrades = 0;
+                dataArray.forEach(data => {
+                    // Only count if it's not a holiday
+                    if (!data.isHoliday) {
+                        if (data.profit >= 0) {
+                            greenTrades++;
+                        } else {
+                            redTrades++;
+                        }
+                    }
+                });
+                const totalTrades = greenTrades + redTrades;
+
+                // Set data-value attributes and trigger animation
+                document.getElementById(greenId).setAttribute('data-value', greenTrades);
+                document.getElementById(redId).setAttribute('data-value', redTrades);
+                document.getElementById(totalId).setAttribute('data-value', totalTrades);
+            }
+            
+            // Function to dynamically generate P&L cards
+            function renderPLCards(dataArray, containerId) {
+                const container = document.getElementById(containerId);
+                container.innerHTML = ''; // Clear previous content
+                dataArray.forEach(data => {
+                    const card = document.createElement('div');
+                    card.className = 'p-6 rounded-lg shadow-md flex justify-between items-center';
+                    
+                    const dateDiv = document.createElement('div');
+                    dateDiv.className = 'text-gray-400 font-semibold';
+                    dateDiv.textContent = data.date;
+
+                    const pnlDiv = document.createElement('div');
+                    pnlDiv.className = 'text-lg font-bold';
+                    
+                    if (data.isHoliday) {
+                        card.classList.add('bg-gray-800');
+                        pnlDiv.className += ' text-gray-500';
+                        pnlDiv.textContent = 'Market Holiday';
+                    } else {
+                        card.classList.add('bg-gray-800');
+                        const isPositive = data.profit >= 0;
+                        pnlDiv.className += ` ${isPositive ? 'text-green-500' : 'text-red-500'}`;
+                        
+                        // Use a span with a data-value for animation
+                        const pnlSpan = document.createElement('span');
+                        pnlSpan.setAttribute('data-value', data.profit.toFixed(2));
+                        
+                        // Correctly format the initial text with the sign
+                        const sign = isPositive ? '+' : '';
+                        pnlSpan.textContent = `${sign}₹${data.profit.toFixed(2)}`;
+
+                        pnlDiv.appendChild(pnlSpan);
+                    }
+                    
+                    card.appendChild(dateDiv);
+                    card.appendChild(pnlDiv);
+                    container.appendChild(card);
+                });
+            }
+
+
+            // Generate the data for each category for the current month (August)
+            const currentYear = new Date().getFullYear();
+            const currentMonth = 7; // August is month 7 (0-indexed)
+            
+            const optionsData = generateMonthlyData('options', currentMonth, currentYear);
+            const forexData = generateMonthlyData('forex', currentMonth, currentYear);
+            const cryptoData = generateMonthlyData('crypto', currentMonth, currentYear);
+
+            // Calculate the total profit for each category, ignoring holidays
+            const optionsProfit = optionsData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
+            const forexProfit = forexData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
+            const cryptoProfit = cryptoData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
+            const totalProfit = optionsProfit + forexProfit + cryptoProfit;
+
+            // Update the display for the main P&L summary
+            document.getElementById('pl-options-display').setAttribute('data-value', optionsProfit.toFixed(2));
+            document.getElementById('pl-forex-display').setAttribute('data-value', forexProfit.toFixed(2));
+            document.getElementById('pl-crypto-display').setAttribute('data-value', cryptoProfit.toFixed(2));
+            document.getElementById('pl-total-display').setAttribute('data-value', totalProfit.toFixed(2));
+
+            // Render the trade counts for each section
+            renderTradeCounts(optionsData, 'options-green-trades', 'options-red-trades', 'options-total-trades');
+            renderTradeCounts(forexData, 'forex-green-trades', 'forex-red-trades', 'forex-total-trades');
+            renderTradeCounts(cryptoData, 'crypto-green-trades', 'crypto-red-trades', 'crypto-total-trades');
+            
+            // Calculate and display total trades for the P&L summary page
+            const totalTrades = optionsData.filter(d => !d.isHoliday).length + forexData.filter(d => !d.isHoliday).length + cryptoData.filter(d => !d.isHoliday).length;
+            document.getElementById('pl-total-trades').setAttribute('data-value', totalTrades);
+
+            // --- Historical P&L Logic ---
+            const historicalPnlContainer = document.getElementById('historical-pnl-container');
+            historicalPnlContainer.innerHTML = ''; // Clear previous content
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            
+            // Loop for the previous 3 months
+            for (let i = 1; i <= 3; i++) {
+                const prevMonth = (currentMonth - i + 12) % 12; // Calculate previous month, handling wrap-around
+                const prevYear = prevMonth > currentMonth ? currentYear - 1 : currentYear;
+
+                // Generate data for each category for the previous month
+                const prevOptionsData = generateMonthlyData('options', prevMonth, prevYear);
+                const prevForexData = generateMonthlyData('forex', prevMonth, prevYear);
+                const prevCryptoData = generateMonthlyData('crypto', prevMonth, prevYear);
+
+                // Calculate total P&L for the month
+                const prevTotalPL = 
+                    prevOptionsData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0) +
+                    prevForexData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0) +
+                    prevCryptoData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
+
+                // Create and append a card for the month
+                const card = document.createElement('div');
+                card.className = 'bg-gray-800 p-6 rounded-lg shadow-md';
+                const isPositive = prevTotalPL >= 0;
+                const pnlColorClass = isPositive ? 'text-green-500' : 'text-red-500';
+                
+                // Use a span with a data-value for animation
+                const pnlSpanId = `hist-pnl-${i}`;
+                card.innerHTML = `
+                    <p class="text-gray-400 text-sm font-semibold">${monthNames[prevMonth]} ${prevYear}</p>
+                    <p class="text-xl font-bold ${pnlColorClass} mt-2">
+                        <span id="${pnlSpanId}" data-value="${prevTotalPL.toFixed(2)}">+₹0.00</span>
+                    </p>
+                `;
+                historicalPnlContainer.appendChild(card);
+            }
 
             // Get and display the current date
             const today = new Date();
@@ -320,20 +682,73 @@
             document.getElementById('report-date').textContent = formattedDate;
             document.getElementById('pl-date').textContent = formattedDate;
 
+            // --- New Animation Logic for falling symbols ---
+            function createSymbolAnimation() {
+                const symbolContainer = document.getElementById('symbol-rain');
+                symbolContainer.innerHTML = ''; // Clear previous symbols
+
+                const numberOfSymbols = 30;
+                const animationDuration = 2500; // 2.5 seconds
+                
+                // Generate and append symbols
+                for (let i = 0; i < numberOfSymbols; i++) {
+                    const symbol = document.createElement('div');
+                    symbol.className = 'falling-symbol';
+                    symbol.textContent = '₹';
+                    
+                    // Set random position, rotation, and animation delay
+                    const randomX = Math.random() * window.innerWidth;
+                    const randomDelay = Math.random() * 2000;
+                    const randomRotation = Math.random() * 360;
+
+                    symbol.style.left = `${randomX}px`;
+                    symbol.style.animationDuration = `${animationDuration}ms`;
+                    symbol.style.animationDelay = `${randomDelay}ms`;
+                    symbol.style.transform = `rotate(${randomRotation}deg)`;
+
+                    symbolContainer.appendChild(symbol);
+                }
+
+                // Remove symbols after animation completes to clean up the DOM
+                setTimeout(() => {
+                    symbolContainer.innerHTML = '';
+                }, animationDuration + 500); // Wait a little longer to ensure animation is finished
+            }
+
             // --- Multi-Page Logic ---
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
 
             function showPage(pageId) {
-                // Hide all content sections
                 contentSections.forEach(section => {
+                    // Hide all sections first
                     section.style.display = 'none';
+                    // Remove the animation class to reset for the next transition
+                    section.classList.remove('page-transition-enter');
                 });
-
-                // Show the target section
                 const targetSection = document.getElementById(pageId);
                 if (targetSection) {
+                    // Show the target section
                     targetSection.style.display = 'block';
+                    // Trigger the animation by adding the class
+                    targetSection.classList.add('page-transition-enter');
+                    
+                    // Render and animate the numbers on the newly displayed page
+                    if (pageId === 'options-page') {
+                        renderPLCards(optionsData, 'options-results-container');
+                        createSymbolAnimation(); // Trigger the animation here
+                    } else if (pageId === 'forex-page') {
+                        renderPLCards(forexData, 'forex-results-container');
+                    } else if (pageId === 'crypto-page') {
+                        renderPLCards(cryptoData, 'crypto-results-container');
+                    }
+                    
+                    const numberElements = targetSection.querySelectorAll('[data-value]');
+                    numberElements.forEach(el => {
+                        const targetValue = parseFloat(el.getAttribute('data-value'));
+                        const isCurrency = el.id.includes('display') || el.id.includes('pnl');
+                        animateNumber(el, targetValue, 1000, isCurrency);
+                    });
                 }
             }
 

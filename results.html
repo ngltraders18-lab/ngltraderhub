@@ -240,10 +240,9 @@
             </section>
             <!-- New Home button for this page -->
             <div class="flex justify-center mt-8">
-               <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
-    <i class="fas fa-arrow-left mr-2"></i> Back to Home
-</a>
-
+                <a href="index.html" class="bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition-colors duration-200 shadow-lg">
+                    Home
+                </a>
             </div>
         </div>
 
@@ -310,10 +309,9 @@
             </section>
             <!-- New Home button for this page -->
             <div class="flex justify-center mt-8">
-                <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
-    <i class="fas fa-arrow-left mr-2"></i> Back to Home
-</a>
-
+                <a href="index.html" class="bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition-colors duration-200 shadow-lg">
+                    Home
+                </a>
             </div>
         </div>
 
@@ -380,10 +378,9 @@
             </section>
             <!-- New Home button for this page -->
             <div class="flex justify-center mt-8">
-                <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
-    <i class="fas fa-arrow-left mr-2"></i> Back to Home
-</a>
-
+                <a href="index.html" class="bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition-colors duration-200 shadow-lg">
+                    Home
+                </a>
             </div>
         </div>
         
@@ -433,10 +430,9 @@
             
             <!-- New Home button for this page -->
             <div class="flex justify-center mt-8">
-               <a href="index.html" class="back-to-home-btn inline-block bg-gray-700 hover:bg-gray-600 text-white font-semibold">
-    <i class="fas fa-arrow-left mr-2"></i> Back to Home
-</a>
-
+                <a href="index.html" class="bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition-colors duration-200 shadow-lg">
+                    Home
+                </a>
             </div>
         </div>
     </main>
@@ -466,134 +462,45 @@
             }
 
             // Function to generate a full month's worth of P&L data for a specific month
-           function generateManualData(category, month, year) {
-    const data = [];
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+            function generateMonthlyData(category, month, year) {
+                const data = [];
+                const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get number of days in the month
+                
+                let minProfit, maxProfit;
+                // Set profit ranges based on category for realistic data
+                if (category === 'options') {
+                    minProfit = -2000;
+                    maxProfit = 8000;
+                } else if (category === 'forex') {
+                    minProfit = -1000;
+                    maxProfit = 4000;
+                } else if (category === 'crypto') {
+                    minProfit = -5000;
+                    maxProfit = 15000;
+                }
 
-    // 👇 Your profits table (Options, Forex, Crypto)
-    const manualProfits = {
-        options: {
-            "August 1, 2025": 2500,
-            "August 2, 2025": -1200,
-            "August 3, 2025": 0,
-            "August 4, 2025": 3200,
-            "August 5, 2025": 4500,
-            "August 6, 2025": -800,
-            "August 7, 2025": 2100,
-            "August 8, 2025": 3900,
-            "August 9, 2025": -1000,
-            "August 10, 2025": 0,
-            "August 11, 2025": 2800,
-            "August 12, 2025": 5000,
-            "August 13, 2025": -700,
-            "August 14, 2025": 3200,
-            "August 15, 2025": 0,
-            "August 16, 2025": 1500,
-            "August 17, 2025": 0,
-            "August 18, 2025": 2700,
-            "August 19, 2025": 3100,
-            "August 20, 2025": -600,
-            "August 21, 2025": 2200,
-            "August 22, 2025": 4100,
-            "August 23, 2025": -1300,
-            "August 24, 2025": 0,
-            "August 25, 2025": 2900,
-            "August 26, 2025": 3300,
-            "August 27, 2025": 1200,
-            "August 28, 2025": -900,
-            "August 29, 2025": 3500,
-            "August 30, 2025": 1800,
-            "August 31, 2025": 0
-        },
-        forex: {
-            "August 1, 2025": 800,
-            "August 2, 2025": 1200,
-            "August 3, 2025": 0,
-            "August 4, 2025": -600,
-            "August 5, 2025": 1400,
-            "August 6, 2025": -300,
-            "August 7, 2025": 700,
-            "August 8, 2025": 1000,
-            "August 9, 2025": -500,
-            "August 10, 2025": 0,
-            "August 11, 2025": 600,
-            "August 12, 2025": 900,
-            "August 13, 2025": -200,
-            "August 14, 2025": 1100,
-            "August 15, 2025": 0,
-            "August 16, 2025": 500,
-            "August 17, 2025": 0,
-            "August 18, 2025": 800,
-            "August 19, 2025": 400,
-            "August 20, 2025": -300,
-            "August 21, 2025": 1000,
-            "August 22, 2025": 600,
-            "August 23, 2025": -200,
-            "August 24, 2025": 0,
-            "August 25, 2025": 900,
-            "August 26, 2025": 1200,
-            "August 27, 2025": 500,
-            "August 28, 2025": -400,
-            "August 29, 2025": 1100,
-            "August 30, 2025": 700,
-            "August 31, 2025": 0
-        },
-        crypto: {
-            "August 1, 2025": 5000,
-            "August 2, 2025": -2000,
-            "August 3, 2025": 0,
-            "August 4, 2025": 7000,
-            "August 5, 2025": 3000,
-            "August 6, 2025": -1500,
-            "August 7, 2025": 4200,
-            "August 8, 2025": 5500,
-            "August 9, 2025": -2200,
-            "August 10, 2025": 0,
-            "August 11, 2025": 4800,
-            "August 12, 2025": 6100,
-            "August 13, 2025": -1700,
-            "August 14, 2025": 5200,
-            "August 15, 2025": 0,
-            "August 16, 2025": 3100,
-            "August 17, 2025": 0,
-            "August 18, 2025": 4500,
-            "August 19, 2025": 3800,
-            "August 20, 2025": -2100,
-            "August 21, 2025": 6200,
-            "August 22, 2025": 7000,
-            "August 23, 2025": -1800,
-            "August 24, 2025": 0,
-            "August 25, 2025": 5400,
-            "August 26, 2025": 7200,
-            "August 27, 2025": 3900,
-            "August 28, 2025": -2500,
-            "August 29, 2025": 6100,
-            "August 30, 2025": 3300,
-            "August 31, 2025": 0
-        }
-    };
+                // Loop through each day of the month
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const date = new Date(year, month, day);
+                    const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
 
-    for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const formattedDate = date.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-        });
+                    const formattedDate = date.toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
 
-        let profit = manualProfits[category][formattedDate] !== undefined
-            ? manualProfits[category][formattedDate]
-            : 0;
-
-        const isHoliday = profit === 0;
-        data.push({ date: formattedDate, profit: profit, isHoliday: isHoliday });
-    }
-
-    return data;
-}
-
-
-               
+                    // Check if it's a weekend (Saturday or Sunday) for Options and Forex only
+                    const isHoliday = (category === 'options' || category === 'forex') && (dayOfWeek === 0 || dayOfWeek === 6);
+                    
+                    if (isHoliday) {
+                        data.push({ date: formattedDate, profit: null, isHoliday: true });
+                    } else {
+                        const profit = getRandomPL(minProfit, maxProfit);
+                        data.push({ date: formattedDate, profit: profit, isHoliday: false });
+                    }
+                }
+                return data;
             }
 
             /**
@@ -697,10 +604,9 @@
             const currentYear = new Date().getFullYear();
             const currentMonth = 7; // August is month 7 (0-indexed)
             
-          const prevOptionsData = generateManualData('options', prevMonth, prevYear);
-const prevForexData = generateManualData('forex', prevMonth, prevYear);
-const prevCryptoData = generateManualData('crypto', prevMonth, prevYear);
-
+            const optionsData = generateMonthlyData('options', currentMonth, currentYear);
+            const forexData = generateMonthlyData('forex', currentMonth, currentYear);
+            const cryptoData = generateMonthlyData('crypto', currentMonth, currentYear);
 
             // Calculate the total profit for each category, ignoring holidays
             const optionsProfit = optionsData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
@@ -735,9 +641,9 @@ const prevCryptoData = generateManualData('crypto', prevMonth, prevYear);
                 const prevYear = prevMonth > currentMonth ? currentYear - 1 : currentYear;
 
                 // Generate data for each category for the previous month
-               const prevOptionsData = generateManualData('options', prevMonth, prevYear);
-const prevForexData = generateManualData('forex', prevMonth, prevYear);
-const prevCryptoData = generateManualData('crypto', prevMonth, prevYear);
+                const prevOptionsData = generateMonthlyData('options', prevMonth, prevYear);
+                const prevForexData = generateMonthlyData('forex', prevMonth, prevYear);
+                const prevCryptoData = generateMonthlyData('crypto', prevMonth, prevYear);
 
                 // Calculate total P&L for the month
                 const prevTotalPL = 

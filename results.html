@@ -148,14 +148,13 @@
     <!-- Container for falling symbols -->
     <div id="symbol-rain" class="absolute inset-0 z-50 pointer-events-none"></div>
 
-    <!-- Header with Navigation -->
+    <!-- Header with Navigation - Corrected for proper layout -->
     <header class="sticky top-0 z-50 bg-[#0c1a2c] bg-opacity-90 backdrop-filter backdrop-blur-lg border-b border-gray-700">
-        <nav class="container flex flex-col md:flex-row justify-between items-center py-4 space-y-4 md:space-y-0">
+        <nav class="container flex justify-between items-center py-4">
             <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-500">
                 NGL HUB
             </h1>
-            <!-- Removed the home link from the header navigation -->
-            <div class="flex flex-wrap justify-center space-x-4 md:space-x-10">
+            <div class="flex flex-wrap items-center justify-center md:justify-start space-x-4 md:space-x-10">
                 <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200 active-link" data-page="options-page">Options</a>
                 <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200" data-page="forex-page">Forex</a>
                 <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200" data-page="crypto-page">Crypto</a>
@@ -456,52 +455,119 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // Function to generate a random P&L value between min and max
-            function getRandomPL(min, max) {
-                return (Math.random() * (max - min) + min);
-            }
-
-            // Function to generate a full month's worth of P&L data for a specific month
-            function generateMonthlyData(category, month, year) {
-                const data = [];
-                const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get number of days in the month
-                
-                let minProfit, maxProfit;
-                // Set profit ranges based on category for realistic data
-                if (category === 'options') {
-                    minProfit = -2000;
-                    maxProfit = 8000;
-                } else if (category === 'forex') {
-                    minProfit = -1000;
-                    maxProfit = 4000;
-                } else if (category === 'crypto') {
-                    minProfit = -5000;
-                    maxProfit = 15000;
-                }
-
-                // Loop through each day of the month
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const date = new Date(year, month, day);
-                    const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
-
-                    const formattedDate = date.toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric'
-                    });
-
-                    // Check if it's a weekend (Saturday or Sunday) for Options and Forex only
-                    const isHoliday = (category === 'options' || category === 'forex') && (dayOfWeek === 0 || dayOfWeek === 6);
-                    
-                    if (isHoliday) {
-                        data.push({ date: formattedDate, profit: null, isHoliday: true });
-                    } else {
-                        const profit = getRandomPL(minProfit, maxProfit);
-                        data.push({ date: formattedDate, profit: profit, isHoliday: false });
-                    }
-                }
-                return data;
-            }
+            // --- MANUAL DATA STRUCTURES ---
+            // You can edit these values directly to change the displayed P&L
+            const manualData = {
+                options: [
+                    { date: "August 1, 2025", profit: 2500, isHoliday: false },
+                    { date: "August 2, 2025", profit: 3200, isHoliday: false },
+                    { date: "August 3, 2025", profit: null, isHoliday: true }, // Weekend
+                    { date: "August 4, 2025", profit: null, isHoliday: true }, // Weekend
+                    { date: "August 5, 2025", profit: -1500, isHoliday: false },
+                    { date: "August 6, 2025", profit: 4500, isHoliday: false },
+                    { date: "August 7, 2025", profit: 1200, isHoliday: false },
+                    { date: "August 8, 2025", profit: 800, isHoliday: false },
+                    { date: "August 9, 2025", profit: 5500, isHoliday: false },
+                    { date: "August 10, 2025", profit: null, isHoliday: true },
+                    { date: "August 11, 2025", profit: null, isHoliday: true },
+                    { date: "August 12, 2025", profit: 2100, isHoliday: false },
+                    { date: "August 13, 2025", profit: -900, isHoliday: false },
+                    { date: "August 14, 2025", profit: 1500, isHoliday: false },
+                    { date: "August 15, 2025", profit: null, isHoliday: true }, // Independence Day
+                    { date: "August 16, 2025", profit: 2500, isHoliday: false },
+                    { date: "August 17, 2025", profit: null, isHoliday: true },
+                    { date: "August 18, 2025", profit: null, isHoliday: true },
+                    { date: "August 19, 2025", profit: 3200, isHoliday: false },
+                    { date: "August 20, 2025", profit: 1800, isHoliday: false },
+                    { date: "August 21, 2025", profit: -500, isHoliday: false },
+                    { date: "August 22, 2025", profit: 2200, isHoliday: false },
+                    { date: "August 23, 2025", profit: null, isHoliday: false },
+                    { date: "August 24, 2025", profit: null, isHoliday: true },
+                    { date: "August 25, 2025", profit: null, isHoliday: true },
+                    { date: "August 26, 2025", profit: 3100, isHoliday: false },
+                    { date: "August 27, 2025", profit: -1200, isHoliday: false },
+                    { date: "August 28, 2025", profit: 2700, isHoliday: false },
+                    { date: "August 29, 2025", profit: 1400, isHoliday: false },
+                    { date: "August 30, 2025", profit: 2900, isHoliday: false },
+                    { date: "August 31, 2025", profit: null, isHoliday: true },
+                ],
+                forex: [
+                    { date: "August 1, 2025", profit: 800, isHoliday: false },
+                    { date: "August 2, 2025", profit: -500, isHoliday: false },
+                    { date: "August 3, 2025", profit: null, isHoliday: true }, // Weekend
+                    { date: "August 4, 2025", profit: null, isHoliday: true }, // Weekend
+                    { date: "August 5, 2025", profit: 1500, isHoliday: false },
+                    { date: "August 6, 2025", profit: 900, isHoliday: false },
+                    { date: "August 7, 2025", profit: -200, isHoliday: false },
+                    { date: "August 8, 2025", profit: 1800, isHoliday: false },
+                    { date: "August 9, 2025", profit: -600, isHoliday: false },
+                    { date: "August 10, 2025", profit: null, isHoliday: true },
+                    { date: "August 11, 2025", profit: null, isHoliday: true },
+                    { date: "August 12, 2025", profit: 2100, isHoliday: false },
+                    { date: "August 13, 2025", profit: -100, isHoliday: false },
+                    { date: "August 14, 2025", profit: 100, isHoliday: false },
+                    { date: "August 15, 2025", profit: null, isHoliday: true },
+                    { date: "August 16, 2025", profit: 200, isHoliday: false },
+                    { date: "August 17, 2025", profit: null, isHoliday: true },
+                    { date: "August 18, 2025", profit: null, isHoliday: true },
+                    { date: "August 19, 2025", profit: -300, isHoliday: false },
+                    { date: "August 20, 2025", profit: 1000, isHoliday: false },
+                    { date: "August 21, 2025", profit: 1500, isHoliday: false },
+                    { date: "August 22, 2025", profit: 800, isHoliday: false },
+                    { date: "August 23, 2025", profit: -120, isHoliday: false },
+                    { date: "August 24, 2025", profit: null, isHoliday: true },
+                    { date: "August 25, 2025", profit: null, isHoliday: true },
+                    { date: "August 26, 2025", profit: 2100, isHoliday: false },
+                    { date: "August 27, 2025", profit: -80, isHoliday: false },
+                    { date: "August 28, 2025", profit: 300, isHoliday: false },
+                    { date: "August 29, 2025", profit: 700, isHoliday: false },
+                    { date: "August 30, 2025", profit: 1200, isHoliday: false },
+                    { date: "August 31, 2025", profit: null, isHoliday: true },
+                ],
+                crypto: [
+                    { date: "August 1, 2025", profit: 5000, isHoliday: false },
+                    { date: "August 2, 2025", profit: 12000, isHoliday: false },
+                    { date: "August 3, 2025", profit: -8000, isHoliday: false },
+                    { date: "August 4, 2025", profit: 7500, isHoliday: false },
+                    { date: "August 5, 2025", profit: -3000, isHoliday: false },
+                    { date: "August 6, 2025", profit: 1500, isHoliday: false },
+                    { date: "August 7, 2025", profit: 9000, isHoliday: false },
+                    { date: "August 8, 2025", profit: -2500, isHoliday: false },
+                    { date: "August 9, 2025", profit: 18000, isHoliday: false },
+                    { date: "August 10, 2025", profit: 4500, isHoliday: false },
+                    { date: "August 11, 2025", profit: 11000, isHoliday: false },
+                    { date: "August 12, 2025", profit: -5000, isHoliday: false },
+                    { date: "August 13, 2025", profit: 14000, isHoliday: false },
+                    { date: "August 14, 2025", profit: -200, isHoliday: false },
+                    { date: "August 15, 2025", profit: 1000, isHoliday: false },
+                    { date: "August 16, 2025", profit: 3000, isHoliday: false },
+                    { date: "August 17, 2025", profit: 2500, isHoliday: false },
+                    { date: "August 18, 2025", profit: 16000, isHoliday: false },
+                    { date: "August 19, 2025", profit: -1200, isHoliday: false },
+                    { date: "August 20, 2025", profit: 8000, isHoliday: false },
+                    { date: "August 21, 2025", profit: 7500, isHoliday: false },
+                    { date: "August 22, 2025", profit: 3400, isHoliday: false },
+                    { date: "August 23, 2025", profit: 9000, isHoliday: false },
+                    { date: "August 24, 2025", profit: 6000, isHoliday: false },
+                    { date: "August 25, 2025", profit: 1100, isHoliday: false },
+                    { date: "August 26, 2025", profit: -450, isHoliday: false },
+                    { date: "August 27, 2025", profit: 2100, isHoliday: false },
+                    { date: "August 28, 2025", profit: 5600, isHoliday: false },
+                    { date: "August 29, 2025", profit: -1800, isHoliday: false },
+                    { date: "August 30, 2025", profit: 12500, isHoliday: false },
+                    { date: "August 31, 2025", profit: 3200, isHoliday: false },
+                ],
+                // Historical P&L for the last 3 months
+                historical: [
+                    // July
+                    { month: "July", year: 2025, profit: 95000 },
+                    // June
+                    { month: "June", year: 2025, profit: 82000 },
+                    // May
+                    { month: "May", year: 2025, profit: -15000 },
+                ]
+            };
+            // --- END MANUAL DATA STRUCTURES ---
 
             /**
              * Animates a number from 0 to a target value.
@@ -521,7 +587,7 @@
 
                     let displayValue;
                     if (isCurrency) {
-                        const sign = targetValue >= 0 ? '+' : ''; // Keep sign for all numbers
+                        const sign = targetValue >= 0 ? '+' : '';
                         const formattedValue = Math.abs(currentValue).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         displayValue = `${sign}₹${formattedValue}`;
                     } else {
@@ -541,8 +607,7 @@
                 let greenTrades = 0;
                 let redTrades = 0;
                 dataArray.forEach(data => {
-                    // Only count if it's not a holiday
-                    if (!data.isHoliday) {
+                    if (!data.isHoliday && data.profit !== null) {
                         if (data.profit >= 0) {
                             greenTrades++;
                         } else {
@@ -551,17 +616,15 @@
                     }
                 });
                 const totalTrades = greenTrades + redTrades;
-
-                // Set data-value attributes and trigger animation
                 document.getElementById(greenId).setAttribute('data-value', greenTrades);
                 document.getElementById(redId).setAttribute('data-value', redTrades);
                 document.getElementById(totalId).setAttribute('data-value', totalTrades);
             }
-            
+
             // Function to dynamically generate P&L cards
             function renderPLCards(dataArray, containerId) {
                 const container = document.getElementById(containerId);
-                container.innerHTML = ''; // Clear previous content
+                container.innerHTML = '';
                 dataArray.forEach(data => {
                     const card = document.createElement('div');
                     card.className = 'p-6 rounded-lg shadow-md flex justify-between items-center';
@@ -582,13 +645,15 @@
                         const isPositive = data.profit >= 0;
                         pnlDiv.className += ` ${isPositive ? 'text-green-500' : 'text-red-500'}`;
                         
-                        // Use a span with a data-value for animation
+                        // Check if profit is not null before calling toFixed()
                         const pnlSpan = document.createElement('span');
-                        pnlSpan.setAttribute('data-value', data.profit.toFixed(2));
-                        
-                        // Correctly format the initial text with the sign
-                        const sign = isPositive ? '+' : '';
-                        pnlSpan.textContent = `${sign}₹${data.profit.toFixed(2)}`;
+                        if (data.profit !== null) {
+                            pnlSpan.setAttribute('data-value', data.profit.toFixed(2));
+                            const sign = isPositive ? '+' : '';
+                            pnlSpan.textContent = `${sign}₹${data.profit.toFixed(2)}`;
+                        } else {
+                            pnlSpan.textContent = "N/A";
+                        }
 
                         pnlDiv.appendChild(pnlSpan);
                     }
@@ -599,19 +664,10 @@
                 });
             }
 
-
-            // Generate the data for each category for the current month (August)
-            const currentYear = new Date().getFullYear();
-            const currentMonth = 7; // August is month 7 (0-indexed)
-            
-            const optionsData = generateMonthlyData('options', currentMonth, currentYear);
-            const forexData = generateMonthlyData('forex', currentMonth, currentYear);
-            const cryptoData = generateMonthlyData('crypto', currentMonth, currentYear);
-
-            // Calculate the total profit for each category, ignoring holidays
-            const optionsProfit = optionsData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
-            const forexProfit = forexData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
-            const cryptoProfit = cryptoData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
+            // Calculate the total profit for each category
+            const optionsProfit = manualData.options.reduce((sum, entry) => !entry.isHoliday && entry.profit !== null ? sum + entry.profit : sum, 0);
+            const forexProfit = manualData.forex.reduce((sum, entry) => !entry.isHoliday && entry.profit !== null ? sum + entry.profit : sum, 0);
+            const cryptoProfit = manualData.crypto.reduce((sum, entry) => !entry.isHoliday && entry.profit !== null ? sum + entry.profit : sum, 0);
             const totalProfit = optionsProfit + forexProfit + cryptoProfit;
 
             // Update the display for the main P&L summary
@@ -621,52 +677,33 @@
             document.getElementById('pl-total-display').setAttribute('data-value', totalProfit.toFixed(2));
 
             // Render the trade counts for each section
-            renderTradeCounts(optionsData, 'options-green-trades', 'options-red-trades', 'options-total-trades');
-            renderTradeCounts(forexData, 'forex-green-trades', 'forex-red-trades', 'forex-total-trades');
-            renderTradeCounts(cryptoData, 'crypto-green-trades', 'crypto-red-trades', 'crypto-total-trades');
+            renderTradeCounts(manualData.options, 'options-green-trades', 'options-red-trades', 'options-total-trades');
+            renderTradeCounts(manualData.forex, 'forex-green-trades', 'forex-red-trades', 'forex-total-trades');
+            renderTradeCounts(manualData.crypto, 'crypto-green-trades', 'crypto-red-trades', 'crypto-total-trades');
             
             // Calculate and display total trades for the P&L summary page
-            const totalTrades = optionsData.filter(d => !d.isHoliday).length + forexData.filter(d => !d.isHoliday).length + cryptoData.filter(d => !d.isHoliday).length;
+            const totalTrades = manualData.options.filter(d => !d.isHoliday && d.profit !== null).length + manualData.forex.filter(d => !d.isHoliday && d.profit !== null).length + manualData.crypto.filter(d => !d.isHoliday && d.profit !== null).length;
             document.getElementById('pl-total-trades').setAttribute('data-value', totalTrades);
 
             // --- Historical P&L Logic ---
             const historicalPnlContainer = document.getElementById('historical-pnl-container');
-            historicalPnlContainer.innerHTML = ''; // Clear previous content
-
-            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            historicalPnlContainer.innerHTML = '';
             
-            // Loop for the previous 3 months
-            for (let i = 1; i <= 3; i++) {
-                const prevMonth = (currentMonth - i + 12) % 12; // Calculate previous month, handling wrap-around
-                const prevYear = prevMonth > currentMonth ? currentYear - 1 : currentYear;
-
-                // Generate data for each category for the previous month
-                const prevOptionsData = generateMonthlyData('options', prevMonth, prevYear);
-                const prevForexData = generateMonthlyData('forex', prevMonth, prevYear);
-                const prevCryptoData = generateMonthlyData('crypto', prevMonth, prevYear);
-
-                // Calculate total P&L for the month
-                const prevTotalPL = 
-                    prevOptionsData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0) +
-                    prevForexData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0) +
-                    prevCryptoData.reduce((sum, entry) => !entry.isHoliday ? sum + entry.profit : sum, 0);
-
-                // Create and append a card for the month
+            manualData.historical.forEach((item, index) => {
                 const card = document.createElement('div');
                 card.className = 'bg-gray-800 p-6 rounded-lg shadow-md';
-                const isPositive = prevTotalPL >= 0;
+                const isPositive = item.profit >= 0;
                 const pnlColorClass = isPositive ? 'text-green-500' : 'text-red-500';
                 
-                // Use a span with a data-value for animation
-                const pnlSpanId = `hist-pnl-${i}`;
+                const pnlSpanId = `hist-pnl-${index}`;
                 card.innerHTML = `
-                    <p class="text-gray-400 text-sm font-semibold">${monthNames[prevMonth]} ${prevYear}</p>
+                    <p class="text-gray-400 text-sm font-semibold">${item.month} ${item.year}</p>
                     <p class="text-xl font-bold ${pnlColorClass} mt-2">
-                        <span id="${pnlSpanId}" data-value="${prevTotalPL.toFixed(2)}">+₹0.00</span>
+                        <span id="${pnlSpanId}" data-value="${item.profit.toFixed(2)}">+₹0.00</span>
                     </p>
                 `;
                 historicalPnlContainer.appendChild(card);
-            }
+            });
 
             // Get and display the current date
             const today = new Date();
@@ -681,34 +718,25 @@
             // --- New Animation Logic for falling symbols ---
             function createSymbolAnimation() {
                 const symbolContainer = document.getElementById('symbol-rain');
-                symbolContainer.innerHTML = ''; // Clear previous symbols
-
+                symbolContainer.innerHTML = '';
                 const numberOfSymbols = 30;
-                const animationDuration = 2500; // 2.5 seconds
-                
-                // Generate and append symbols
+                const animationDuration = 2500;
                 for (let i = 0; i < numberOfSymbols; i++) {
                     const symbol = document.createElement('div');
                     symbol.className = 'falling-symbol';
                     symbol.textContent = '₹';
-                    
-                    // Set random position, rotation, and animation delay
                     const randomX = Math.random() * window.innerWidth;
                     const randomDelay = Math.random() * 2000;
                     const randomRotation = Math.random() * 360;
-
                     symbol.style.left = `${randomX}px`;
                     symbol.style.animationDuration = `${animationDuration}ms`;
                     symbol.style.animationDelay = `${randomDelay}ms`;
                     symbol.style.transform = `rotate(${randomRotation}deg)`;
-
                     symbolContainer.appendChild(symbol);
                 }
-
-                // Remove symbols after animation completes to clean up the DOM
                 setTimeout(() => {
                     symbolContainer.innerHTML = '';
-                }, animationDuration + 500); // Wait a little longer to ensure animation is finished
+                }, animationDuration + 500);
             }
 
             // --- Multi-Page Logic ---
@@ -717,26 +745,21 @@
 
             function showPage(pageId) {
                 contentSections.forEach(section => {
-                    // Hide all sections first
                     section.style.display = 'none';
-                    // Remove the animation class to reset for the next transition
                     section.classList.remove('page-transition-enter');
                 });
                 const targetSection = document.getElementById(pageId);
                 if (targetSection) {
-                    // Show the target section
                     targetSection.style.display = 'block';
-                    // Trigger the animation by adding the class
                     targetSection.classList.add('page-transition-enter');
                     
-                    // Render and animate the numbers on the newly displayed page
                     if (pageId === 'options-page') {
-                        renderPLCards(optionsData, 'options-results-container');
-                        createSymbolAnimation(); // Trigger the animation here
+                        renderPLCards(manualData.options, 'options-results-container');
+                        createSymbolAnimation();
                     } else if (pageId === 'forex-page') {
-                        renderPLCards(forexData, 'forex-results-container');
+                        renderPLCards(manualData.forex, 'forex-results-container');
                     } else if (pageId === 'crypto-page') {
-                        renderPLCards(cryptoData, 'crypto-results-container');
+                        renderPLCards(manualData.crypto, 'crypto-results-container');
                     }
                     
                     const numberElements = targetSection.querySelectorAll('[data-value]');

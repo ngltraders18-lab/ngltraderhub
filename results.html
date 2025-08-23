@@ -150,11 +150,11 @@
 
     <!-- Header with Navigation - Corrected for proper layout -->
     <header class="sticky top-0 z-50 bg-[#0c1a2c] bg-opacity-90 backdrop-filter backdrop-blur-lg border-b border-gray-700">
-        <nav class="container flex justify-between items-center py-4">
-            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-500">
+        <nav class="container flex flex-col md:flex-row justify-between items-center py-4">
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-500 mb-4 md:mb-0">
                 NGL HUB
             </h1>
-            <div class="flex flex-wrap items-center justify-center md:justify-start space-x-4 md:space-x-10">
+            <div class="flex flex-wrap items-center justify-center space-x-4 md:space-x-10">
                 <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200 active-link" data-page="options-page">Options</a>
                 <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200" data-page="forex-page">Forex</a>
                 <a href="#" class="nav-link text-lg font-medium text-gray-400 hover:text-white transition-colors duration-200" data-page="crypto-page">Crypto</a>
@@ -248,7 +248,7 @@
         <!-- Forex Page Section -->
         <div id="forex-page" class="content-section">
             <section class="section-card p-6 md:p-10 mb-8 subtle-green-glow">
-                <h2 class="text-3xl font-bold text-white mb-4">Forex Trading Results</h2>
+                <h2 class="text-3xl font-bold text-white mb-4">Forex Trading Results </h2>
                 <p class="text-base text-gray-300 mb-6 leading-relaxed">
                     Here is a summary of our forex performance. Our group’s strategy combines technical indicators with a deep understanding of macroeconomic fundamentals.
                 </p>
@@ -560,11 +560,11 @@
                 // Historical P&L for the last 3 months
                 historical: [
                     // July
-                    { month: "July", year: 2025, profit: 175245 },
+                    { month: "July", year: 2025, profit: 95000 },
                     // June
-                    { month: "June", year: 2025, profit: 157303 },
+                    { month: "June", year: 2025, profit: 82000 },
                     // May
-                    { month: "May", year: 2025, profit: 0 },
+                    { month: "May", year: 2025, profit: -15000 },
                 ]
             };
             // --- END MANUAL DATA STRUCTURES ---

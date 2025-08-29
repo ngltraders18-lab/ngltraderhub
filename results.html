@@ -609,16 +609,16 @@
                 dataArray.forEach(data => {
                     if (!data.isHoliday && data.profit !== null) {
                         if (data.profit >= 0) {
-                            greenDays++;
+                            greenTrades++;
                         } else {
                             redDays++;
                         }
                     }
                 });
                 const totalTrades = greenTrades + redTrades;
-                document.getElementById(greenId).setAttribute('data-value', greenDays);
-                document.getElementById(redId).setAttribute('data-value', redDays);
-                document.getElementById(totalId).setAttribute('data-value', totalDays);
+                document.getElementById(greenId).setAttribute('data-value', greenTrades);
+                document.getElementById(redId).setAttribute('data-value', redTrades);
+                document.getElementById(totalId).setAttribute('data-value', totalTrades);
             }
 
             // Function to dynamically generate P&L cards

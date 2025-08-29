@@ -609,16 +609,16 @@
                 dataArray.forEach(data => {
                     if (!data.isHoliday && data.profit !== null) {
                         if (data.profit >= 0) {
-                            greenTrades++;
+                            greenDays++;
                         } else {
-                            redTrades++;
+                            redDays++;
                         }
                     }
                 });
                 const totalTrades = greenTrades + redTrades;
-                document.getElementById(greenId).setAttribute('data-value', greenTrades);
-                document.getElementById(redId).setAttribute('data-value', redTrades);
-                document.getElementById(totalId).setAttribute('data-value', totalTrades);
+                document.getElementById(greenId).setAttribute('data-value', greenDays);
+                document.getElementById(redId).setAttribute('data-value', redDays);
+                document.getElementById(totalId).setAttribute('data-value', totalDays);
             }
 
             // Function to dynamically generate P&L cards
@@ -677,9 +677,9 @@
             document.getElementById('pl-total-display').setAttribute('data-value', totalProfit.toFixed(2));
 
             // Render the trade counts for each section
-            renderTradeCounts(manualData.options, 'options-green-trades', 'options-red-trades', 'options-total-trades');
-            renderTradeCounts(manualData.forex, 'forex-green-trades', 'forex-red-trades', 'forex-total-trades');
-            renderTradeCounts(manualData.crypto, 'crypto-green-trades', 'crypto-red-trades', 'crypto-total-trades');
+            renderTradeCounts(manualData.options, 'options-green-days', 'options-red-days', 'options-total-days');
+            renderTradeCounts(manualData.forex, 'forex-green-days', 'forex-red-days', 'forex-total-days');
+            renderTradeCounts(manualData.crypto, 'crypto-green-days', 'crypto-red-days', 'crypto-total-days');
             
             // Calculate and display total trades for the P&L summary page
             const totalTrades = manualData.options.filter(d => !d.isHoliday && d.profit !== null).length + manualData.forex.filter(d => !d.isHoliday && d.profit !== null).length + manualData.crypto.filter(d => !d.isHoliday && d.profit !== null).length;
